@@ -1,0 +1,646 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Coiled-Spring Screen · Oct 2026</title><style>
+  :root {
+    --bg: #f4f6f9;
+    --bg2: #ffffff;
+    --bg3: #eef2f7;
+    --panel: #ffffff;
+    --border: #d5dde8;
+    --border2: #c3cedc;
+    --text: #1a2332;
+    --muted: #5a6b80;
+    --dim: #7a8b9e;
+    --accent: #1a6fbf;
+    --accent2: #0d5a9e;
+    --green: #1a7f4b;
+    --green-bg: #e6f5ed;
+    --red: #c62828;
+    --red-bg: #fdecea;
+    --amber: #9a6b00;
+    --amber-bg: #fff6e0;
+    --purple: #5b4db8;
+    --next-bg: #e8f1fb;
+    --next-border: #7eb0e0;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.45;
+    min-height: 100vh;
+  }
+  header.app-header {
+    background:
+      linear-gradient(90deg, #1a6fbf 0 42%, #6a5acd 42% 70%, #e5a52d 70% 100%) top / 100% 4px no-repeat,
+      linear-gradient(115deg, #ffffff 0%, #edf6ff 54%, #fff5e5 100%);
+    border-bottom: 1px solid #c8d7e8;
+    padding: 20px 28px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(39, 91, 140, 0.08);
+  }
+  header.app-header::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: 7%;
+    width: 180px;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(106,90,205,0), rgba(106,90,205,0.55), rgba(229,165,45,0));
+    pointer-events: none;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .brand h1 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--accent2);
+  }
+  .brand .sub {
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 2px;
+  }
+  .meta-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .pill strong { color: var(--text); font-weight: 600; }
+  .pill.live { border-color: #8bc9a8; background: var(--green-bg); color: var(--green); }
+  .pill:nth-child(2) { border-color: #b9d4ee; background: #f1f7fd; }
+  .pill:nth-child(3) { border-color: #e8d29e; background: #fff8e8; }
+  nav.tabs {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding-bottom: 0;
+  }
+  .tab {
+    appearance: none;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--dim);
+    padding: 10px 16px;
+    font-size: 0.88rem;
+    font-weight: 550;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  .tab:hover:not(:disabled) { color: var(--text); }
+  .tab.active {
+    color: var(--accent2);
+    border-bottom-color: var(--accent);
+  }
+  .tab:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
+  .tab-note {
+    color: var(--dim);
+    font-size: 0.72rem;
+    padding: 10px 8px;
+    align-self: center;
+  }
+  main { padding: 22px 28px 48px; max-width: 1700px; margin: 0 auto; }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 2px rgba(26,35,50,0.04);
+  }
+  .panel h2 {
+    font-size: 0.95rem;
+    font-weight: 650;
+    letter-spacing: 0.01em;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+  }
+  .panel h2 .tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    padding: 2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .snapshot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    gap: 12px;
+  }
+  .snapshot-groups {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .snapshot-group {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+  }
+  .snapshot-group.reported {
+    background: linear-gradient(145deg, #f8fcff 0%, #eef7ff 100%);
+    border-color: #b9d3ec;
+    border-top: 4px solid #2d8a62;
+  }
+  .snapshot-group.guide {
+    background: linear-gradient(145deg, #fbfaff 0%, #f1efff 100%);
+    border-color: #c9c3ee;
+    border-top: 4px solid #6a5acd;
+  }
+  .snapshot-group h3 {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 11px;
+    color: var(--text);
+    font-size: 0.86rem;
+    letter-spacing: 0.01em;
+  }
+  .snapshot-group h3 .group-period {
+    color: var(--muted);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-align: right;
+  }
+  .snapshot-group.guide h3 { color: #5145a8; }
+  .snapshot-group .snapshot-grid { gap: 10px; }
+  .snapshot-group .stat { background: rgba(255,255,255,0.72); }
+  .snapshot-group .kpi-row { margin-top: 12px; }
+  .group-subhead {
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 650;
+    letter-spacing: 0.05em;
+    margin-top: 14px;
+    text-transform: uppercase;
+  }
+  @media (max-width: 900px) {
+    .snapshot-groups { grid-template-columns: 1fr; }
+  }
+  .stat {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .stat .label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .stat .value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+  .stat .delta {
+    font-size: 0.78rem;
+    margin-top: 3px;
+    font-variant-numeric: tabular-nums;
+  }
+  .up { color: var(--green); }
+  .down { color: var(--red); }
+  .flat { color: var(--amber); }
+  .muted { color: var(--muted); }
+  .headline {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.55;
+  }
+  .headline strong { color: var(--text); }
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  table.qtable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.76rem;
+    font-variant-numeric: tabular-nums;
+    min-width: 1280px;
+  }
+  table.qtable th, table.qtable td {
+    padding: 7px 9px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    text-align: right;
+  }
+  table.qtable th {
+    background: var(--bg3);
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.72rem;
+    position: sticky;
+    top: 0;
+  }
+  table.qtable th:first-child, table.qtable td:first-child {
+    text-align: left;
+    position: sticky;
+    left: 0;
+    background: var(--bg2);
+    z-index: 2;
+    min-width: 160px;
+    font-weight: 550;
+  }
+  table.qtable th:first-child { background: var(--bg3); z-index: 3; }
+  table.qtable tr:hover td { background: #f8fafc; }
+  table.qtable tr:hover td:first-child { background: #f0f4f8; }
+  table.qtable th.latest, table.qtable td.latest {
+    background: #eaf3ec;
+    font-weight: 600;
+  }
+  table.qtable th.latest { background: #d9eadc; color: var(--green); }
+  table.qtable th.next, table.qtable td.next {
+    background: var(--next-bg);
+    font-weight: 600;
+    border-left: 2px solid var(--next-border);
+  }
+  table.qtable th.next { background: #d4e6f7; color: var(--accent2); }
+  table.qtable td.next { color: var(--accent2); }
+  tr.section-row td {
+    background: var(--bg3) !important;
+    text-align: left !important;
+    font-weight: 650;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    padding-top: 10px;
+    padding-bottom: 6px;
+  }
+  .miss { color: var(--dim); }
+  .est { color: var(--amber); }
+  .beat-pos { color: var(--green); }
+  .beat-neg { color: var(--red); }
+  .legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 0.74rem;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .legend span::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    margin-right: 5px;
+    vertical-align: middle;
+    border: 1px solid var(--border);
+  }
+  .l-ok::before { background: #eaf3ec; }
+  .l-miss::before { background: #f0f0f0; }
+  .l-est::before { background: var(--amber-bg); }
+  .l-next::before { background: var(--next-bg); border-color: var(--next-border); }
+  .kpi-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .kpi {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 120px;
+  }
+  .kpi .k { color: var(--muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.03em; }
+  .kpi .v { font-weight: 650; font-variant-numeric: tabular-nums; }
+  .proj-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 18px;
+  }
+  @media (max-width: 980px) { .proj-grid { grid-template-columns: 1fr; } }
+  .beat-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .beat-table th, .beat-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: right;
+  }
+  .beat-table th:first-child, .beat-table td:first-child { text-align: left; }
+  .beat-table th {
+    background: var(--bg3);
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.72rem;
+  }
+  .proj-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .proj-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+  .proj-card.high {
+    background: var(--next-bg);
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 0 3px rgba(26,111,191,0.12);
+  }
+  .proj-card .tier {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    font-weight: 650;
+    margin-bottom: 4px;
+  }
+  .proj-card.high .tier { color: var(--accent2); }
+  .proj-card .amt {
+    font-size: 1.35rem;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+  }
+  .proj-card .eps { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+  .method {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.55;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .method code {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    background: #e4ebf3;
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+  .method ul { margin: 6px 0 6px 18px; }
+  .method li { margin-bottom: 3px; }
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .note-block {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .note-block h3 {
+    font-size: 0.8rem;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-weight: 650;
+  }
+  .note-block strong { color: var(--text); }
+  .seasonality {
+    background: #fff8e8;
+    border: 1px solid #e6d19a;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.84rem;
+    color: var(--text);
+    line-height: 1.55;
+    margin-top: 12px;
+  }
+  .seasonality h3 {
+    font-size: 0.8rem;
+    color: var(--amber);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .aqoq-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  @media (max-width: 640px) { .aqoq-box { grid-template-columns: 1fr; } }
+  .aqoq-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .aqoq-card.next-card {
+    background: var(--next-bg);
+    border-color: var(--next-border);
+  }
+  .aqoq-card .lbl { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .aqoq-card .big { font-size: 1.4rem; font-weight: 750; margin-top: 2px; }
+  .aqoq-card .sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+  footer.sources {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  footer.sources a { color: var(--accent); }
+  .hidden { display: none; }
+  @media print {
+    header.app-header { position: static; }
+    body { background: #fff; }
+    .panel { box-shadow: none; break-inside: avoid; }
+    .tab:disabled, .tab-note { display: none; }
+  }
+</style><style>
+.sigbar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:0 0 10px}
+.sigitem{background:#fff;border:1px solid var(--border);border-radius:8px;padding:5px 8px;font-size:.7rem;color:var(--muted);line-height:1.3}
+.sigitem b{color:var(--accent2);margin-right:3px}
+@media(max-width:1000px){.sigbar{grid-template-columns:repeat(2,1fr)}}
+.sig{display:inline-block;font-size:.66rem;font-weight:700;padding:1px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.03em}
+.sig-M{background:var(--green-bg);color:var(--green)}.sig-P{background:var(--amber-bg);color:var(--amber)}.sig-N{background:var(--red-bg);color:var(--red)}.sig-U{background:#eceff3;color:var(--dim)}
+.matrix td{vertical-align:top;min-width:120px;text-align:left}.matrix .ev,.ev{font-size:.7rem;color:var(--muted);margin-top:3px;line-height:1.35;white-space:normal}
+.cell-M{background:#f4fbf7}.cell-P{background:#fffbf0}.cell-N{background:#fdf5f4}
+.score{font-weight:800;font-size:1.1rem;color:var(--accent2);text-align:center}
+.note{font-size:.75rem;color:var(--dim);margin-top:10px}
+.disclaimer{font-size:.78rem;color:var(--amber);background:var(--amber-bg);border:1px solid #e6d19a;border-radius:8px;padding:10px 12px;margin-top:10px}
+.sigt td{text-align:left;white-space:normal}
+</style></head><body>
+<header class="app-header"><div class="header-top"><div class="brand"><h1>Coiled-Spring Screen</h1><div class="sub">10 candidates × 7 pre-run signals · data as of Oct 11, 2026 · research only, not advice</div></div>
+<div class="meta-pills"><span class="pill live"><strong>10</strong> names</span><span class="pill">Prices: <strong>Oct 9 close</strong></span><span class="pill">Swap: <strong>TSEM → SITM</strong></span></div></div>
+<div class="sigbar"><div class="sigitem"><b>1</b> Guide ≥10–15% above consensus + revenue +20% QoQ</div><div class="sigitem"><b>2</b> Gross margin inflecting up</div><div class="sigitem"><b>3</b> Earnings gap to new highs on heavy volume</div><div class="sigitem"><b>4</b> Consensus revisions up after print</div><div class="sigitem"><b>5</b> Named big-customer wins / backlog well ahead of revenue</div><div class="sigitem"><b>6</b> Operating leverage / FCF turning positive</div><div class="sigitem"><b>7</b> Starting market cap under ~$10–15B</div></div><nav class="tabs" role="tablist"><button class="tab active" data-tab="summary">Summary</button><button class="tab" data-tab="vicr">VICR · 6.0</button><button class="tab" data-tab="fps">FPS · 5.0</button><button class="tab" data-tab="aehr">AEHR · 5.0</button><button class="tab" data-tab="axti">AXTI · 4.0</button><button class="tab" data-tab="viav">VIAV · 3.0</button><button class="tab" data-tab="sitm">SITM · 3.0</button><button class="tab" data-tab="mp1">MP1 · 3.0</button><button class="tab" data-tab="ena">ENA · 3.0</button><button class="tab" data-tab="accv">ACCV · 2.5</button><button class="tab" data-tab="aaoi">AAOI · 2.0</button></nav></header>
+<main><section id="tab-summary" class="tab-panel">
+<div class="panel"><h2>Signal matrix <span class="tag">sorted by score · Met = 1, Partial = 0.5, Not met / Unverified = 0</span></h2>
+<div class="table-wrap"><table class="qtable matrix"><thead><tr><th>#</th><th>Company</th><th>Score /7</th><th title="Guide ≥10–15% above consensus + revenue +20% QoQ">1. Guide+QoQ</th><th title="Gross margin inflecting up">2. GM inflect</th><th title="Earnings gap to new highs on heavy volume">3. Gap/highs</th><th title="Consensus revisions up after print">4. Revisions</th><th title="Named big-customer wins / backlog well ahead of revenue">5. Wins/backlog</th><th title="Operating leverage / FCF turning positive">6. Op lev/FCF</th><th title="Starting market cap under ~$10–15B">7. Mkt cap</th><th>Mkt cap</th><th>Latest rev growth</th><th>GM</th><th>Key risk</th></tr></thead><tbody><tr><td>1</td><td><b>VICR</b><div class="ev">Vicor</div></td><td class="score">6.0</td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">Q3 sequential guide raised twice in 9 days: ~10% → &gt;20% (9/21) → &gt;30% (9/30), i.e. Q3 &gt;~$186M vs Q2 $143.4M</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">GAAP GM 49.1% (Q2&#x27;25) → 55.2% (Q1&#x27;26) → 58.0% (Q2&#x27;26); royalties are high-margin mix</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">+11% after hours on 9/30 guide raise; but now ~30% below 52-wk high $382.65 (exact gap-day volume not verified)</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Two guide raises force Street numbers up; size of revisions not verified</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">Four OEM/hyperscaler licensees; first non-exclusive VPD licence driving Q3 royalties; VPD licence to &#x27;leading AI OEM&#x27;</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">Op margin 0.4% (Q2&#x27;25) → 24.3% (Q2&#x27;26); FCF +$23.0M in Q2&#x27;26; net cash ~$446M</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">~$12.3B — inside the ~$10–15B band, upper end</div></td><td>$12.3B</td><td>+49% YoY / +27% QoQ (Q2&#x27;26)</td><td>58.0% GAAP</td><td class="ev">Royalty lumpiness; patent-enforcement dependence; already up several-fold in 2026</td></tr><tr><td>2</td><td><b>FPS</b><div class="ev">Forgent Power Solutions</div></td><td class="score">5.0</td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">FY27 guide $2.4–2.6B (mid $2.5B) vs ~$2.09B consensus (+20%); FQ4 rev +22% QoQ; beat high end of May guide</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">GM 33.5% (FQ4&#x27;25) → 36.1% (FQ4&#x27;26); modest, +1.4pp QoQ</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">Now ~39% below 52-wk high $66; no verified post-print gap to highs</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Upgrades and unusual volume after print (Sep 2026); magnitude of estimate revisions not verified</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">Backlog $3.0B (+256% YoY) vs FY26 revenue $1.42B; FQ4 bookings $1.5B, book-to-bill 3.3x; &gt;90% of FY27 guide covered</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">Op margin 3.5% → 19.9% YoY; FCF +$42.6M FQ4 (first strongly positive qtr); CFO $74M</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">~$12.2B — inside band</div></td><td>$12.2B</td><td>+94% YoY / +22% QoQ (FQ4&#x27;26)</td><td>36.1%</td><td class="ev">Recent IPO (Feb 2026) + follow-on; net debt ~$606M; project-delivery execution</td></tr><tr><td>3</td><td><b>AEHR</b><div class="ev">Aehr Test Systems</div></td><td class="score">5.0</td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">FY27 guide $130–150M (+160–200%) — annual, not quarterly; consensus comparison not verified. FQ4 rev +83% QoQ</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">GAAP GM 25.8% (FQ2&#x27;26) → 32.7% → 42.6% (FQ4&#x27;26)</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">One-day +24% move reported after the print; stock now ~43% below 52-wk high</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Upgrade to Buy (Freedom Broker, PT $110); broad revisions not verified</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">Record bookings $60.7M; effective backlog $100.6M = 2x FY26 revenue; lead AI hyperscaler (Sonoma) + top-tier AI processor benchmark</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">FQ4 GAAP NI +$1.4M, non-GAAP NI $3.6M, FCF +$1.7M; FY27 non-GAAP NI guide 18–22% of revenue</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">~$2.8B</div></td><td>$2.8B</td><td>+34% YoY / +83% QoQ (FQ4&#x27;26)</td><td>42.6% GAAP</td><td class="ev">History of missed guides; customer concentration; equity raises (new shelf filed)</td></tr><tr><td>4</td><td><b>AXTI</b><div class="ev">AXT, Inc.</div></td><td class="score">4.0</td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Q3 &#x27;high-confidence&#x27; revenue ~$66M (+39% QoQ) with permit upside; consensus comparison not verified</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">GAAP GM 8.0% (Q2&#x27;25) → 29.6% (Q1&#x27;26) → 44.9% (Q2&#x27;26)</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">Now ~52% below 52-wk high $143.16; no current breakout</div></td><td class="cell cell-U"><span class="sig sig-U">Unverified</span><div class="ev">Not verified (PT avg $91.6, 5 analysts)</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Long-term supplier agreement with Lumentum; InP capacity to $60M/qtr by end-2026, $130M by end-2027; no backlog figure</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">Op margin −37.5% → +21.9% YoY; FCF +$3.6M Q2&#x27;26; GAAP EPS $0.17 vs −$0.16</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">~$4.4B</div></td><td>$4.4B</td><td>+165% YoY / +77% QoQ (Q2&#x27;26)</td><td>44.9% GAAP</td><td class="ev">China export permits; China-based manufacturing; already a 10x+ mover</td></tr><tr><td>5</td><td><b>VIAV</b><div class="ev">Viavi Solutions</div></td><td class="score">3.0</td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">FQ1&#x27;27 guide $450–460M = only ~+2.7% QoQ at midpoint</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Non-GAAP GM 62.3% (+220bp YoY, flat QoQ); GAAP 59.1% (+160bp QoQ)</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">~25% below 52-wk high; no verified gap</div></td><td class="cell cell-U"><span class="sig sig-U">Unverified</span><div class="ev">Not verified</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Data-center ecosystem and A&amp;D cited as drivers; no backlog/customer figures disclosed</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">Non-GAAP op margin 14.4% → 24.0% (+960bp YoY); FCF +$55.6M</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">~$11.2B</div></td><td>$11.2B</td><td>+53% YoY / +9% QoQ (FQ4&#x27;26)</td><td>62.3% non-GAAP</td><td class="ev">Sequential growth decelerating; YoY inflated by Spirent acquisition; ~$650M notes</td></tr><tr><td>6</td><td><b>SITM</b><div class="ev">SiTime (swap for TSEM)</div></td><td class="score">3.0</td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Q3 guide $285–295M incl. ~$85M acquired TPD; core $200–210M = +30% QoQ at mid. Consensus comparison not verified</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">Non-GAAP GM 58.2% (Q2&#x27;25) → 64.5% → 67.1%; Q3 combined ~68% ±1</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">~32% below 52-wk high</div></td><td class="cell cell-U"><span class="sig sig-U">Unverified</span><div class="ev">Not verified</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Management cites backlog strength and customer forecasts (CED +181%); no backlog $ figure</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">GAAP op margin −32.7% → +10.6% YoY; FCF +$27.3M</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">~$18.4B — above the band (fails conditioning signal)</div></td><td>$18.4B</td><td>+127% YoY / +39% QoQ (Q2&#x27;26)</td><td>63.0% GAAP / 67.1% non-GAAP</td><td class="ev">Above the cap band; $1.2B convert; Renesas timing (TPD) integration distorts comps</td></tr><tr><td>7</td><td><b>MP1</b><div class="ev">Megaport (ASX:MP1)</div></td><td class="score">3.0</td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">FY27 revenue guide raised to A$720–810M from A$620–730M (+13% at mid; ~+145% vs FY26). Consensus not verified; half-yearly reporter</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Group EBITDA-margin guide raised to 42–44% from 38–40%; GM not reported comparably</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">~19% below 52-wk high; RSI ~46</div></td><td class="cell cell-U"><span class="sig sig-U">Unverified</span><div class="ev">Not verified (16 analysts &#x27;Strong Buy&#x27;, PT A$28.07)</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">~A$979M TCV across three new AI contracts (two new customers), A$232M ARR, A$323M prepayments; 14 strategic contracts</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">FY26 net loss A$39M; capex guide implies deeply negative FCF</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">~A$4.4B (~US$2.9B)</div></td><td>A$4.4B</td><td>FY26 +37.5% YoY (A$312.2M)</td><td>n/a (EBITDA-margin guide)</td><td class="ev">Capex A$1.78–1.88B (funding/dilution); GPU-cloud pricing; contract concentration</td></tr><tr><td>8</td><td><b>ENA</b><div class="ev">Enablence (TSXV:ENA)</div></td><td class="score">3.0</td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">FY27 revenue guide US$19–21M (+150% at mid); no consensus available</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">GAAP GM −40% (FY25) → −12/−18% (FY26 prelim; first positive-GM quarter) → +25–35% guided FY27</div></td><td class="cell cell-U"><span class="sig sig-U">Unverified</span><div class="ev">Not verified</div></td><td class="cell cell-U"><span class="sig sig-U">Unverified</span><div class="ev">Not verified (minimal coverage)</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Demand outpaces wafer capacity; no named customers/backlog figure</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">Still loss-making; capacity investment</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">~C$216M</div></td><td>C$216M</td><td>FY27 guide +150%</td><td>FY26 −12% to −18% (prelim)</td><td class="ev">Micro-cap, illiquid; financing risk; preliminary unaudited numbers</td></tr><tr><td>9</td><td><b>ACCV</b><div class="ev">Accelevation (IPO Sep 30, 2026)</div></td><td class="score">2.5</td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">No public guidance yet (pre-first-print)</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">GM 32.5% (FY24) → 32.3% (FY25) → 26.6% (H1&#x27;26): falling during ramp (caution flag)</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">IPO priced below range; flat on day 1; no base yet</div></td><td class="cell cell-U"><span class="sig sig-U">Unverified</span><div class="ev">Coverage starts after quiet period</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">Backlog $1.111B (Jun 30, 2026) vs $419M at YE25; book-to-bill ~2.5x</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Profitable (H1&#x27;26 NI $19.3M); FCF not verified</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">~$2.6B+ at $18 (Class A + 117M Class B; total share count not verified)</div></td><td>~$2.6B+ (unverified)</td><td>H1&#x27;26 rev $437.5M (+176% per study)</td><td>26.6% H1&#x27;26 (from 32.3% FY25)</td><td class="ev">Sponsor (Olympus) selling; falling GM; % of completion accounting; no trading history</td></tr><tr><td>10</td><td><b>AAOI</b><div class="ev">Applied Optoelectronics</div></td><td class="score">2.0</td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Q3 guide $255–290M = +42% QoQ at mid; consensus comparison not verified</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">GAAP GM 30.3% → 27.7% YoY; non-GAAP guide 29–30.5% — flat (the &#x27;AAOI-type&#x27; false-positive caveat)</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">~53% below 52-wk high</div></td><td class="cell cell-U"><span class="sig sig-U">Unverified</span><div class="ev">Not verified</div></td><td class="cell cell-P"><span class="sig sig-P">Partial</span><div class="ev">Demand forecast to exceed capacity through mid-2027; 800G more than doubled QoQ; customers not named in release</div></td><td class="cell cell-N"><span class="sig sig-N">Not met</span><div class="ev">GAAP op loss −$24.7M; FCF −$564M in Q2&#x27;26 (capex $575M)</div></td><td class="cell cell-M"><span class="sig sig-M">Met</span><div class="ev">~$9.9B</div></td><td>$9.9B</td><td>+86% YoY / +27% QoQ (Q2&#x27;26)</td><td>27.7% GAAP / 29.8% non-GAAP</td><td class="ev">GM not inflecting in capacity ramp; huge capex/FCF burn; dilution; customer concentration</td></tr></tbody></table></div>
+<p class="note">Prices/market caps: close Oct 9, 2026 (stockanalysis.com quote pages). Market caps are approximate. “Unverified” means the data was not found in a primary or reputable source this session; it counts as 0, not as a fail.</p></div>
+<div class="panel"><h2>Methodology</h2><div class="method"><ul>
+<li>Signals and their ranking come from the coiled-spring retrospective (Part 2 checklist). Each cell is graded from the latest reported quarter and guidance (8-K / press release / call transcript where available).</li>
+<li>Signal 1 is <b>Met</b> only when both the size of the guide versus Street (or intra-quarter raises) and ≥20% QoQ are supported. When the QoQ part is verified but the consensus comparison is not, the cell is <b>Partial</b>.</li>
+<li>Signal 3 is judged on <i>current</i> price action: every name here is now 19–53% below its 52-week high, so none is currently “gapping to new highs”. Exact gap-day volume was not verified.</li>
+<li>Signal 4 (revisions) needs FactSet/Koyfin-type data that wasn't available, so most cells are Unverified.</li>
+<li>Quarterly history comes from S&amp;P Global data via stockanalysis.com. The latest quarter was cross-checked against the company release. The implied next-quarter range (guide high × (1 + min/avg/max of the last 5 beats)) needs historical guide highs, which weren't compiled, so it shows N/A rather than an invented number.</li>
+<li><b>Swaps:</b> TSEM (~$26B market cap at $228.71) was replaced by SiTime (from the study's retrospective list). SiTime also fails signal 7 (~$18.4B), but it scores higher on signals 1, 2 and 6. Accelevation was kept despite thin data, flagged “limited data”.</li></ul></div></div>
+<div class="panel"><h2>Retrospective lesson (from the study)</h2><div class="notes-grid">
+<div class="note-block"><h3>NVDA (May 2023)</h3>FQ2 guide $11.0B vs ~$7.2B consensus (+~50%). +24% gap to all-time highs. The biggest revisions of the cycle followed.</div>
+<div class="note-block"><h3>CRDO (Dec 2024)</h3>FQ3 guide $115–125M vs ~$85M Street (+~60% QoQ). +~47% gap. Started at ~$6–7B market cap.</div>
+<div class="note-block"><h3>ALAB (Aug 2024)</h3>+47% QoQ on ~76–77% GM. Repeated 15–20% beats. IPO-base breakout from ~$6–7B.</div>
+<div class="note-block"><h3>MU (2023–25)</h3>Bought at negative GM. RS turned before the numbers, then guides beat every quarter. Cycle-peak risk.</div>
+<div class="note-block"><h3>SITM / HOOD / IREN</h3>SITM: trough-revenue “expensive” breakout. HOOD: operating leverage plus EPS revisions. IREN: narrative plus RS, with the contract confirming later.</div>
+<div class="note-block"><h3>Pattern</h3>6 of 8 runs started within a day of a print whose guide was 15–60% above consensus. Signals 1–3 together are the most reliable; any one alone has a high false-positive rate.</div></div></div>
+<div class="panel"><div class="disclaimer"><b>Disclaimer:</b> Research only. This is not investment advice or a recommendation to buy or sell any security. Figures may contain errors; verify against primary filings before relying on them.</div></div>
+</section><section id="tab-vicr" class="tab-panel hidden">
+<div class="panel"><h2>Vicor · VICR <span class="tag">score 6.0 / 7</span></h2><p class="headline">Market cap <strong>$12.3B</strong> · Price $266.07 (52-wk 48.53–382.65; −30% from high) · Key risk: Royalty lumpiness; patent-enforcement dependence; already up several-fold in 2026</p></div>
+<div class="panel"><h2>1 · Snapshot <span class="tag">reported vs guide</span></h2><div class="snapshot-groups">
+<section class="snapshot-group reported"><h3><span>Reported results</span><span class="group-period">latest</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Revenue Q2&#x27;26</div><div class="value">$143.4M</div><div class="delta">+49% YoY · +27% QoQ</div></div><div class="stat"><div class="label">GAAP GM</div><div class="value">58.0%</div><div class="delta">+2.8pp QoQ</div></div><div class="stat"><div class="label">Op margin</div><div class="value">24.3%</div><div class="delta">vs 0.4% yr ago</div></div><div class="stat"><div class="label">GAAP EPS</div><div class="value">$1.04</div><div class="delta">FCF +$23.0M</div></div></div><div class="group-subhead">KPIs</div><div class="kpi-row"><div class="kpi"><span class="k">Net cash</span><span class="v">$446M</span></div><div class="kpi"><span class="k">Licensees</span><span class="v">4 OEMs/hyperscalers</span></div><div class="kpi"><span class="k">SBC % rev</span><span class="v">not compiled</span></div></div></section>
+<section class="snapshot-group guide"><h3><span>Guide</span><span class="group-period">next period</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Q3&#x27;26 rev guide</div><div class="value">&gt;$186M</div><div class="delta">&#x27;&gt;30%&#x27; sequential (raised 9/30)</div></div><div class="stat"><div class="label">Prior guides</div><div class="value">~10% → &gt;20%</div><div class="delta">9/21 raise; original ~10%</div></div><div class="stat"><div class="label">Next print</div><div class="value">Oct 20, 2026</div><div class="delta">per stockanalysis calendar</div></div></div></section></div></div>
+<div class="panel"><h2>2 · Quarterly history <span class="tag">newest → oldest · $M</span></h2><div class="table-wrap"><table class="qtable"><thead><tr><th>Metric</th><th>Q2'26</th><th>Q1'26</th><th>Q4'25</th><th>Q3'25</th><th>Q2'25</th><th>Q1'25</th><th>Q4'24</th><th>Q3'24</th><th>Q2'24</th><th>Q1'24</th></tr></thead><tbody><tr><td>Revenue ($M)</td><td>143.3</td><td>113.0</td><td>107.3</td><td>110.4</td><td>96.0</td><td>94.0</td><td>96.2</td><td>93.2</td><td>85.8</td><td>83.9</td></tr><tr><td>QoQ</td><td class="up">26.9%</td><td class="up">5.3%</td><td class="down">-2.9%</td><td class="up">15.0%</td><td class="up">2.2%</td><td class="down">-2.3%</td><td class="up">3.2%</td><td class="up">8.5%</td><td class="up">2.4%</td><td class=""><span class="muted">—</span></td></tr><tr><td>YoY</td><td class="up">49.2%</td><td class="up">20.2%</td><td class="up">11.5%</td><td class="up">18.5%</td><td class="up">11.9%</td><td class="up">12.0%</td><td class="up">3.8%</td><td class="down">-13.6%</td><td class="down">-19.6%</td><td class="down">-14.3%</td></tr><tr><td>Gross margin</td><td>58.0%</td><td>55.2%</td><td>55.4%</td><td>57.5%</td><td>49.1%</td><td>47.2%</td><td>52.4%</td><td>49.1%</td><td>49.8%</td><td>53.8%</td></tr><tr><td>Op margin</td><td class="up">24.3%</td><td class="up">14.9%</td><td class="up">15.1%</td><td class="up">19.3%</td><td class="up">0.4%</td><td class="down">-0.2%</td><td class="up">10.6%</td><td class="up">5.8%</td><td class="up">2.9%</td><td class="up">1.3%</td></tr><tr><td>GAAP EPS</td><td class="up">1.04</td><td class="up">0.45</td><td class="up">1.01</td><td class="up">0.63</td><td class="up">0.91</td><td class="up">0.06</td><td class="up">0.23</td><td class="up">0.26</td><td class="down">-0.03</td><td class="down">-0.33</td></tr><tr><td>FCF ($M)</td><td class="up">23.0</td><td class="down">-16.3</td><td class="up">10.2</td><td class="up">34.5</td><td class="up">59.0</td><td class="up">15.6</td><td class="up">8.4</td><td class="up">14.1</td><td class="up">9.4</td><td class="down">-4.7</td></tr></tbody></table></div><p class="note">Q2&#x27;25 EPS/net income inflated by a patent-litigation settlement (pretax margin 51%). Q2&#x27;25 revenue shown ex-settlement ($96.05M).</p></div>
+<div class="panel"><h2>3 · Implied next-period range</h2><div class="method">Vicor guides a growth floor (&#x27;&gt;30%&#x27;), not a band, and prior-quarter guide highs were not compiled — implied range from last-5 beats is N/A. Floor math: $143.35M × 1.30 = $186.4M.</div></div>
+<div class="panel"><h2>4 · Signal checklist</h2><div class="table-wrap"><table class="qtable sigt"><thead><tr><th>Signal</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>1. Guide ≥10–15% above consensus + revenue +20% QoQ</td><td><span class="sig sig-M">Met</span></td><td>Q3 sequential guide raised twice in 9 days: ~10% → &gt;20% (9/21) → &gt;30% (9/30), i.e. Q3 &gt;~$186M vs Q2 $143.4M</td></tr><tr><td>2. Gross margin inflecting up</td><td><span class="sig sig-M">Met</span></td><td>GAAP GM 49.1% (Q2&#x27;25) → 55.2% (Q1&#x27;26) → 58.0% (Q2&#x27;26); royalties are high-margin mix</td></tr><tr><td>3. Earnings gap to new highs on heavy volume</td><td><span class="sig sig-P">Partial</span></td><td>+11% after hours on 9/30 guide raise; but now ~30% below 52-wk high $382.65 (exact gap-day volume not verified)</td></tr><tr><td>4. Consensus revisions up after print</td><td><span class="sig sig-P">Partial</span></td><td>Two guide raises force Street numbers up; size of revisions not verified</td></tr><tr><td>5. Named big-customer wins / backlog well ahead of revenue</td><td><span class="sig sig-M">Met</span></td><td>Four OEM/hyperscaler licensees; first non-exclusive VPD licence driving Q3 royalties; VPD licence to &#x27;leading AI OEM&#x27;</td></tr><tr><td>6. Operating leverage / FCF turning positive</td><td><span class="sig sig-M">Met</span></td><td>Op margin 0.4% (Q2&#x27;25) → 24.3% (Q2&#x27;26); FCF +$23.0M in Q2&#x27;26; net cash ~$446M</td></tr><tr><td>7. Starting market cap under ~$10–15B</td><td><span class="sig sig-M">Met</span></td><td>~$12.3B — inside the ~$10–15B band, upper end</td></tr></tbody></table></div></div>
+<div class="panel"><h2>5 · Latest call / release summary</h2><div class="notes-grid">
+<div class="note-block"><h3>Segments</h3>Advanced Products (incl. royalties) $94.2M (+55% YoY) vs Brick $49.2M in Q2&#x27;26.</div><div class="note-block"><h3>Upside</h3>Further VPD licences; royalty mix lifts GM; new NH ChiP fab sites add capacity.</div><div class="note-block"><h3>Downside</h3>Royalties may be lumpy; patents can be challenged/designed around; capex for new fabs pressures FCF; inventory up 10% QoQ.</div></div></div>
+<div class="panel"><h2>6 · Sources</h2><footer class="sources"><a href="https://business-news-today.com/vicor-nasdaq-vicr-raises-q3-growth-above-30-as-ai-royalties-accelerate-again/" target="_blank" rel="noopener">Q3 guide raise coverage (Oct 3, 2026)</a> · <a href="https://stockanalysis.com/stocks/vicr/financials/?p=quarterly" target="_blank" rel="noopener">Quarterly financials (S&amp;P via stockanalysis)</a> · <a href="https://stockanalysis.com/stocks/vicr/" target="_blank" rel="noopener">Quote / mkt cap</a></footer><div class="disclaimer">Research only — not investment advice.</div></div>
+</section><section id="tab-fps" class="tab-panel hidden">
+<div class="panel"><h2>Forgent Power Solutions · FPS <span class="tag">score 5.0 / 7</span></h2><p class="headline">Market cap <strong>$12.2B</strong> · Price $40.03 (52-wk 25.95–66.00; −39% from high) · Key risk: Recent IPO (Feb 2026) + follow-on; net debt ~$606M; project-delivery execution</p></div>
+<div class="panel"><h2>1 · Snapshot <span class="tag">reported vs guide</span></h2><div class="snapshot-groups">
+<section class="snapshot-group reported"><h3><span>Reported results</span><span class="group-period">latest</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Revenue FQ4&#x27;26</div><div class="value">$461.7M</div><div class="delta">+94% YoY · +22% QoQ</div></div><div class="stat"><div class="label">Net income</div><div class="value">$66M</div><div class="delta">14.3% margin</div></div><div class="stat"><div class="label">Adj. EBITDA</div><div class="value">$113M</div><div class="delta">24.4% margin</div></div><div class="stat"><div class="label">Backlog</div><div class="value">$3.0B</div><div class="delta">B2B 3.3x</div></div></div><div class="group-subhead">KPIs</div><div class="kpi-row"><div class="kpi"><span class="k">Bookings FQ4</span><span class="v">$1.503B</span></div><div class="kpi"><span class="k">Net debt</span><span class="v">~$606M</span></div><div class="kpi"><span class="k">SBC % rev</span><span class="v">not compiled</span></div></div></section>
+<section class="snapshot-group guide"><h3><span>Guide</span><span class="group-period">next period</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">FY27 revenue</div><div class="value">$2.4–2.6B</div><div class="delta">+76% YoY at mid</div></div><div class="stat"><div class="label">FY27 adj. EPS</div><div class="value">$1.26–1.40</div><div class="delta">vs ~$1.14 consensus [study]</div></div><div class="stat"><div class="label">Consensus FY27 rev</div><div class="value">~$2.09B</div><div class="delta">TheFly via stockanalysis</div></div></div></section></div></div>
+<div class="panel"><h2>2 · Quarterly history <span class="tag">newest → oldest · $M</span></h2><div class="table-wrap"><table class="qtable"><thead><tr><th>Metric</th><th>FQ4'26</th><th>FQ3'26</th><th>FQ2'26</th><th>FQ1'26</th><th>FQ4'25</th><th>FQ3'25</th><th>FQ2'25</th><th>FQ1'25</th></tr></thead><tbody><tr><td>Revenue ($M)</td><td>461.7</td><td>378.7</td><td>296.4</td><td>283.3</td><td>237.6</td><td>186.2</td><td>175.3</td><td>154.0</td></tr><tr><td>QoQ</td><td class="up">21.9%</td><td class="up">27.8%</td><td class="up">4.6%</td><td class="up">19.2%</td><td class="up">27.6%</td><td class="up">6.2%</td><td class="up">13.8%</td><td class=""><span class="muted">—</span></td></tr><tr><td>YoY</td><td class="up">94.3%</td><td class="up">103.4%</td><td class="up">69.0%</td><td class="up">83.9%</td><td class=""><span class="muted">—</span></td><td class=""><span class="muted">—</span></td><td class=""><span class="muted">—</span></td><td class=""><span class="muted">—</span></td></tr><tr><td>Gross margin</td><td>36.1%</td><td>34.6%</td><td>34.3%</td><td>34.6%</td><td>33.5%</td><td>36.6%</td><td>36.4%</td><td>43.1%</td></tr><tr><td>Op margin</td><td class="up">19.9%</td><td class="up">10.4%</td><td class="up">6.8%</td><td class="up">11.0%</td><td class="up">3.5%</td><td class="up">12.0%</td><td class="up">10.8%</td><td class="up">14.7%</td></tr><tr><td>GAAP EPS</td><td class="up">0.21</td><td class="up">0.08</td><td class="down">-0.04</td><td class=""><span class="muted">—</span></td><td class=""><span class="muted">—</span></td><td class=""><span class="muted">—</span></td><td class=""><span class="muted">—</span></td><td class=""><span class="muted">—</span></td></tr><tr><td>FCF ($M)</td><td class="up">42.6</td><td class="up">0.9</td><td class="down">-26.4</td><td class="down">-23.9</td><td class="down">-48.2</td><td class="down">-26.2</td><td class="up">26.4</td><td class="up">8.9</td></tr></tbody></table></div><p class="note">Fiscal year ends June. Pre-IPO quarters have no per-share EPS. FY25 quarterly YoY not available (no FY24 quarterly data).</p></div>
+<div class="panel"><h2>3 · Implied next-period range</h2><div class="method">Forgent guides annually, not quarterly; management expects revenue to rise every quarter. Quarterly implied range N/A. Annual guide mid / consensus = +20%.</div></div>
+<div class="panel"><h2>4 · Signal checklist</h2><div class="table-wrap"><table class="qtable sigt"><thead><tr><th>Signal</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>1. Guide ≥10–15% above consensus + revenue +20% QoQ</td><td><span class="sig sig-M">Met</span></td><td>FY27 guide $2.4–2.6B (mid $2.5B) vs ~$2.09B consensus (+20%); FQ4 rev +22% QoQ; beat high end of May guide</td></tr><tr><td>2. Gross margin inflecting up</td><td><span class="sig sig-P">Partial</span></td><td>GM 33.5% (FQ4&#x27;25) → 36.1% (FQ4&#x27;26); modest, +1.4pp QoQ</td></tr><tr><td>3. Earnings gap to new highs on heavy volume</td><td><span class="sig sig-N">Not met</span></td><td>Now ~39% below 52-wk high $66; no verified post-print gap to highs</td></tr><tr><td>4. Consensus revisions up after print</td><td><span class="sig sig-P">Partial</span></td><td>Upgrades and unusual volume after print (Sep 2026); magnitude of estimate revisions not verified</td></tr><tr><td>5. Named big-customer wins / backlog well ahead of revenue</td><td><span class="sig sig-M">Met</span></td><td>Backlog $3.0B (+256% YoY) vs FY26 revenue $1.42B; FQ4 bookings $1.5B, book-to-bill 3.3x; &gt;90% of FY27 guide covered</td></tr><tr><td>6. Operating leverage / FCF turning positive</td><td><span class="sig sig-M">Met</span></td><td>Op margin 3.5% → 19.9% YoY; FCF +$42.6M FQ4 (first strongly positive qtr); CFO $74M</td></tr><tr><td>7. Starting market cap under ~$10–15B</td><td><span class="sig sig-M">Met</span></td><td>~$12.2B — inside band</td></tr></tbody></table></div></div>
+<div class="panel"><h2>5 · Latest call / release summary</h2><div class="notes-grid">
+<div class="note-block"><h3>Segments</h3>Custom Products $291.5M; Powertrain Solutions $146.7M (~40% of backlog); Standard $11.2M; Services $12.3M.</div><div class="note-block"><h3>Upside</h3>Additional Tijuana capacity; M&amp;A now on the table; backlog covers &gt;90% of FY27 guide.</div><div class="note-block"><h3>Downside</h3>FQ1 carries hiring/facility costs; lockup/secondary supply; backlog realization timing (10-K risk factor).</div></div></div>
+<div class="panel"><h2>6 · Sources</h2><footer class="sources"><a href="https://ir.forgentpower.com/news-events/press-releases/detail/107/forgent-reports-record-fourth-quarter-and-full-year-2026-results-exceeds-high-end-of-guidance-and-enters-fiscal-2027-with-all-time-high-backlog" target="_blank" rel="noopener">FQ4&#x27;26 release</a> · <a href="https://stockanalysis.com/stocks/fps/transcripts/669207-q4-2026/" target="_blank" rel="noopener">FQ4&#x27;26 call transcript</a> · <a href="https://stockanalysis.com/stocks/fps/financials/?p=quarterly" target="_blank" rel="noopener">Quarterly financials</a> · <a href="https://stockanalysis.com/stocks/fps/" target="_blank" rel="noopener">Quote / consensus note</a></footer><div class="disclaimer">Research only — not investment advice.</div></div>
+</section><section id="tab-aehr" class="tab-panel hidden">
+<div class="panel"><h2>Aehr Test Systems · AEHR <span class="tag">score 5.0 / 7</span></h2><p class="headline">Market cap <strong>$2.8B</strong> · Price $84.64 (52-wk 18.70–147.40; −43% from high) · Key risk: History of missed guides; customer concentration; equity raises (new shelf filed)</p></div>
+<div class="panel"><h2>1 · Snapshot <span class="tag">reported vs guide</span></h2><div class="snapshot-groups">
+<section class="snapshot-group reported"><h3><span>Reported results</span><span class="group-period">latest</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Revenue FQ4&#x27;26</div><div class="value">$18.8M</div><div class="delta">+34% YoY · +83% QoQ</div></div><div class="stat"><div class="label">GAAP GM</div><div class="value">42.6%</div><div class="delta">+9.9pp QoQ</div></div><div class="stat"><div class="label">Non-GAAP EPS</div><div class="value">$0.11</div><div class="delta">GAAP $0.04</div></div><div class="stat"><div class="label">Cash</div><div class="value">$116.5M</div><div class="delta">after ~$97M raise</div></div></div><div class="group-subhead">KPIs</div><div class="kpi-row"><div class="kpi"><span class="k">Bookings FQ4</span><span class="v">$60.7M</span></div><div class="kpi"><span class="k">Effective backlog</span><span class="v">$100.6M</span></div><div class="kpi"><span class="k">SBC % rev</span><span class="v">9.9%</span></div></div></section>
+<section class="snapshot-group guide"><h3><span>Guide</span><span class="group-period">next period</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">FY27 revenue</div><div class="value">$130–150M</div><div class="delta">+160–200% YoY</div></div><div class="stat"><div class="label">FY27 non-GAAP NI</div><div class="value">18–22% of rev</div><div class="delta">≈$23–33M</div></div><div class="stat"><div class="label">Next print</div><div class="value">~Nov 2, 2026</div><div class="delta">calendar estimate</div></div></div></section></div></div>
+<div class="panel"><h2>2 · Quarterly history <span class="tag">newest → oldest · $M</span></h2><div class="table-wrap"><table class="qtable"><thead><tr><th>Metric</th><th>FQ4'26</th><th>FQ3'26</th><th>FQ2'26</th><th>FQ1'26</th><th>FQ4'25</th><th>FQ3'25</th><th>FQ2'25</th><th>FQ1'25</th><th>FQ4'24</th><th>FQ3'24</th></tr></thead><tbody><tr><td>Revenue ($M)</td><td>18.8</td><td>10.3</td><td>9.9</td><td>11.0</td><td>14.1</td><td>18.3</td><td>13.4</td><td>13.1</td><td>16.6</td><td>7.6</td></tr><tr><td>QoQ</td><td class="up">82.7%</td><td class="up">4.4%</td><td class="down">-9.9%</td><td class="down">-22.1%</td><td class="down">-23.0%</td><td class="up">36.1%</td><td class="up">2.5%</td><td class="down">-21.0%</td><td class="up">119.6%</td><td class=""><span class="muted">—</span></td></tr><tr><td>YoY</td><td class="up">33.7%</td><td class="down">-43.7%</td><td class="down">-26.5%</td><td class="down">-16.4%</td><td class="down">-15.1%</td><td class="up">142.2%</td><td class="down">-37.2%</td><td class="down">-36.4%</td><td class="down">-25.5%</td><td class="down">-56.1%</td></tr><tr><td>Gross margin</td><td>42.6%</td><td>32.7%</td><td>25.8%</td><td>33.9%</td><td>30.3%</td><td>39.2%</td><td>40.1%</td><td>54.0%</td><td>50.9%</td><td>41.7%</td></tr><tr><td>Op margin</td><td class="down">-6.4%</td><td class="down">-41.0%</td><td class="down">-49.2%</td><td class="down">-35.1%</td><td class="down">-13.1%</td><td class="down">-6.1%</td><td class="down">-11.2%</td><td class="up">1.2%</td><td class="up">15.3%</td><td class="down">-27.1%</td></tr><tr><td>GAAP EPS</td><td class="up">0.04</td><td class="down">-0.10</td><td class="down">-0.11</td><td class="down">-0.07</td><td class="down">-0.10</td><td class="down">-0.02</td><td class="down">-0.03</td><td class="up">0.02</td><td class="up">0.81</td><td class="down">-0.05</td></tr><tr><td>FCF ($M)</td><td class="up">1.7</td><td class="down">-3.8</td><td class="down">-1.6</td><td class="down">-1.7</td><td class="down">-5.1</td><td class="down">-3.3</td><td class="down">-6.2</td><td class="up">2.2</td><td class="up">1.2</td><td class="down">-3.1</td></tr></tbody></table></div><p class="note">Fiscal year ends late May. FQ4&#x27;24 EPS includes a deferred-tax valuation-allowance release. FQ4&#x27;26 SBC $1.87M = 9.9% of revenue.</p></div>
+<div class="panel"><h2>3 · Implied next-period range</h2><div class="method">Annual guide only; quarterly implied range N/A. Implied quarterly run-rate ≈ $33–38M avg vs $18.8M in FQ4&#x27;26.</div></div>
+<div class="panel"><h2>4 · Signal checklist</h2><div class="table-wrap"><table class="qtable sigt"><thead><tr><th>Signal</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>1. Guide ≥10–15% above consensus + revenue +20% QoQ</td><td><span class="sig sig-P">Partial</span></td><td>FY27 guide $130–150M (+160–200%) — annual, not quarterly; consensus comparison not verified. FQ4 rev +83% QoQ</td></tr><tr><td>2. Gross margin inflecting up</td><td><span class="sig sig-M">Met</span></td><td>GAAP GM 25.8% (FQ2&#x27;26) → 32.7% → 42.6% (FQ4&#x27;26)</td></tr><tr><td>3. Earnings gap to new highs on heavy volume</td><td><span class="sig sig-P">Partial</span></td><td>One-day +24% move reported after the print; stock now ~43% below 52-wk high</td></tr><tr><td>4. Consensus revisions up after print</td><td><span class="sig sig-P">Partial</span></td><td>Upgrade to Buy (Freedom Broker, PT $110); broad revisions not verified</td></tr><tr><td>5. Named big-customer wins / backlog well ahead of revenue</td><td><span class="sig sig-M">Met</span></td><td>Record bookings $60.7M; effective backlog $100.6M = 2x FY26 revenue; lead AI hyperscaler (Sonoma) + top-tier AI processor benchmark</td></tr><tr><td>6. Operating leverage / FCF turning positive</td><td><span class="sig sig-P">Partial</span></td><td>FQ4 GAAP NI +$1.4M, non-GAAP NI $3.6M, FCF +$1.7M; FY27 non-GAAP NI guide 18–22% of revenue</td></tr><tr><td>7. Starting market cap under ~$10–15B</td><td><span class="sig sig-M">Met</span></td><td>~$2.8B</td></tr></tbody></table></div></div>
+<div class="panel"><h2>5 · Latest call / release summary</h2><div class="notes-grid">
+<div class="note-block"><h3>Segments</h3>Systems $11.2M, WaferPak contactors $5.8M, services $1.9M (FQ4&#x27;26).</div><div class="note-block"><h3>Upside</h3>Top-tier AI processor moving to pilot production; second hyperscaler Sonoma device; SiPho customer ramps; SiC recovery (~$8M new orders).</div><div class="note-block"><h3>Downside</h3>Back-half-weighted year; prior guide misses; concentration in lead AI customer; dilution via shelf.</div></div></div>
+<div class="panel"><h2>6 · Sources</h2><footer class="sources"><a href="https://www.sec.gov/Archives/edgar/data/1040470/000165495426006655/aehr_ex991.htm" target="_blank" rel="noopener">FQ4&#x27;26 release (8-K ex. 99.1)</a> · <a href="https://stockanalysis.com/stocks/aehr/financials/?p=quarterly" target="_blank" rel="noopener">Quarterly financials</a> · <a href="https://stockanalysis.com/stocks/aehr/" target="_blank" rel="noopener">Quote</a></footer><div class="disclaimer">Research only — not investment advice.</div></div>
+</section><section id="tab-axti" class="tab-panel hidden">
+<div class="panel"><h2>AXT, Inc. · AXTI <span class="tag">score 4.0 / 7</span></h2><p class="headline">Market cap <strong>$4.4B</strong> · Price $68.46 (52-wk 4.00–143.16; −52% from high) · Key risk: China export permits; China-based manufacturing; already a 10x+ mover</p></div>
+<div class="panel"><h2>1 · Snapshot <span class="tag">reported vs guide</span></h2><div class="snapshot-groups">
+<section class="snapshot-group reported"><h3><span>Reported results</span><span class="group-period">latest</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Revenue Q2&#x27;26</div><div class="value">$47.6M</div><div class="delta">+165% YoY · +77% QoQ</div></div><div class="stat"><div class="label">GAAP GM</div><div class="value">44.9%</div><div class="delta">+15.3pp QoQ</div></div><div class="stat"><div class="label">GAAP EPS</div><div class="value">$0.17</div><div class="delta">non-GAAP $0.19</div></div><div class="stat"><div class="label">Cash</div><div class="value">$412M</div><div class="delta">+ $299M LT inv.</div></div></div><div class="group-subhead">KPIs</div><div class="kpi-row"><div class="kpi"><span class="k">Q3 opex (non-GAAP)</span><span class="v">~$10.5M</span></div><div class="kpi"><span class="k">Q3 shares</span><span class="v">~66.5M</span></div><div class="kpi"><span class="k">SBC % rev</span><span class="v">1.6%</span></div></div></section>
+<section class="snapshot-group guide"><h3><span>Guide</span><span class="group-period">next period</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Q3&#x27;26 revenue</div><div class="value">~$66M</div><div class="delta">permitted/no-permit-needed; upside possible</div></div><div class="stat"><div class="label">Q3 non-GAAP EPS</div><div class="value">$0.30–0.32</div><div class="delta">GAAP $0.29–0.31</div></div><div class="stat"><div class="label">Next print</div><div class="value">Oct 29, 2026</div><div class="delta">company-announced</div></div></div></section></div></div>
+<div class="panel"><h2>2 · Quarterly history <span class="tag">newest → oldest · $M</span></h2><div class="table-wrap"><table class="qtable"><thead><tr><th>Metric</th><th>Q2'26</th><th>Q1'26</th><th>Q4'25</th><th>Q3'25</th><th>Q2'25</th><th>Q1'25</th><th>Q4'24</th><th>Q3'24</th><th>Q2'24</th><th>Q1'24</th></tr></thead><tbody><tr><td>Revenue ($M)</td><td>47.6</td><td>26.9</td><td>23.0</td><td>28.0</td><td>18.0</td><td>19.4</td><td>25.1</td><td>23.6</td><td>27.9</td><td>22.7</td></tr><tr><td>QoQ</td><td class="up">76.8%</td><td class="up">16.8%</td><td class="down">-17.6%</td><td class="up">55.6%</td><td class="down">-7.2%</td><td class="down">-22.9%</td><td class="up">6.2%</td><td class="down">-15.3%</td><td class="up">23.0%</td><td class=""><span class="muted">—</span></td></tr><tr><td>YoY</td><td class="up">164.8%</td><td class="up">39.0%</td><td class="down">-8.2%</td><td class="up">18.2%</td><td class="down">-35.6%</td><td class="down">-14.7%</td><td class="up">22.9%</td><td class="up">36.2%</td><td class="up">50.1%</td><td class="up">16.9%</td></tr><tr><td>Gross margin</td><td>44.9%</td><td>29.6%</td><td>20.9%</td><td>22.3%</td><td>8.0%</td><td>-6.4%</td><td>17.6%</td><td>24.0%</td><td>27.4%</td><td>26.9%</td></tr><tr><td>Op margin</td><td class="up">21.9%</td><td class="down">-5.9%</td><td class="down">-16.6%</td><td class="down">-4.0%</td><td class="down">-37.5%</td><td class="down">-53.1%</td><td class="down">-24.6%</td><td class="down">-14.4%</td><td class="down">-6.8%</td><td class="down">-14.8%</td></tr><tr><td>GAAP EPS</td><td class="up">0.17</td><td class="down">-0.03</td><td class="down">-0.08</td><td class="down">-0.04</td><td class="down">-0.16</td><td class="down">-0.20</td><td class="down">-0.12</td><td class="down">-0.07</td><td class="down">-0.04</td><td class="down">-0.05</td></tr><tr><td>FCF ($M)</td><td class="up">3.6</td><td class="down">-13.1</td><td class="up">1.3</td><td class="down">-11.3</td><td class="down">-4.9</td><td class="down">-3.9</td><td class="up">1.1</td><td class="down">-6.4</td><td class="up">0.6</td><td class="down">-13.2</td></tr></tbody></table></div><p class="note">Q2&#x27;26 SBC $0.76M = 1.6% of revenue. Balance sheet now ~$412M cash after equity raises (APIC $340M → $944M in H1&#x27;26).</p></div>
+<div class="panel"><h2>3 · Implied next-period range</h2><div class="method">Guide is a single point (~$66M) not a band, and prior guide history not compiled — last-5-beat implied range N/A.</div></div>
+<div class="panel"><h2>4 · Signal checklist</h2><div class="table-wrap"><table class="qtable sigt"><thead><tr><th>Signal</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>1. Guide ≥10–15% above consensus + revenue +20% QoQ</td><td><span class="sig sig-P">Partial</span></td><td>Q3 &#x27;high-confidence&#x27; revenue ~$66M (+39% QoQ) with permit upside; consensus comparison not verified</td></tr><tr><td>2. Gross margin inflecting up</td><td><span class="sig sig-M">Met</span></td><td>GAAP GM 8.0% (Q2&#x27;25) → 29.6% (Q1&#x27;26) → 44.9% (Q2&#x27;26)</td></tr><tr><td>3. Earnings gap to new highs on heavy volume</td><td><span class="sig sig-N">Not met</span></td><td>Now ~52% below 52-wk high $143.16; no current breakout</td></tr><tr><td>4. Consensus revisions up after print</td><td><span class="sig sig-U">Unverified</span></td><td>Not verified (PT avg $91.6, 5 analysts)</td></tr><tr><td>5. Named big-customer wins / backlog well ahead of revenue</td><td><span class="sig sig-P">Partial</span></td><td>Long-term supplier agreement with Lumentum; InP capacity to $60M/qtr by end-2026, $130M by end-2027; no backlog figure</td></tr><tr><td>6. Operating leverage / FCF turning positive</td><td><span class="sig sig-M">Met</span></td><td>Op margin −37.5% → +21.9% YoY; FCF +$3.6M Q2&#x27;26; GAAP EPS $0.17 vs −$0.16</td></tr><tr><td>7. Starting market cap under ~$10–15B</td><td><span class="sig sig-M">Met</span></td><td>~$4.4B</td></tr></tbody></table></div></div>
+<div class="panel"><h2>5 · Latest call / release summary</h2><div class="notes-grid">
+<div class="note-block"><h3>Segments</h3>Substrates $37.6M; raw materials &amp; other $10.0M (Q2&#x27;26). Record InP revenue.</div><div class="note-block"><h3>Upside</h3>Additional export permits; 6-inch InP; capacity more than doubling in 2027.</div><div class="note-block"><h3>Downside</h3>Permit timing unpredictable; geopolitical (US–China); Tongmei JV/STAR-listing complexity.</div></div></div>
+<div class="panel"><h2>6 · Sources</h2><footer class="sources"><a href="https://investors.axt.com/Investors/news/news-details/2026/AXT-Inc--Announces-Second-Quarter-2026-Financial-Results/default.aspx" target="_blank" rel="noopener">Q2&#x27;26 release</a> · <a href="https://www.fool.com/earnings/call-transcripts/2026/07/30/axt-axti-q2-2026-earnings-call-transcript/" target="_blank" rel="noopener">Q2&#x27;26 call (Motley Fool)</a> · <a href="https://semiconductor-today.com/news_items/2026/aug/axt-040826.shtml" target="_blank" rel="noopener">Semiconductor Today summary</a> · <a href="https://stockanalysis.com/stocks/axti/financials/?p=quarterly" target="_blank" rel="noopener">Quarterly financials</a></footer><div class="disclaimer">Research only — not investment advice.</div></div>
+</section><section id="tab-viav" class="tab-panel hidden">
+<div class="panel"><h2>Viavi Solutions · VIAV <span class="tag">score 3.0 / 7</span></h2><p class="headline">Market cap <strong>$11.2B</strong> · Price $45.46 (52-wk 12.23–60.43; −25% from high) · Key risk: Sequential growth decelerating; YoY inflated by Spirent acquisition; ~$650M notes</p></div>
+<div class="panel"><h2>1 · Snapshot <span class="tag">reported vs guide</span></h2><div class="snapshot-groups">
+<section class="snapshot-group reported"><h3><span>Reported results</span><span class="group-period">latest</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Revenue FQ4&#x27;26</div><div class="value">$443.1M</div><div class="delta">+52.5% YoY · +8.9% QoQ</div></div><div class="stat"><div class="label">Non-GAAP op margin</div><div class="value">24.0%</div><div class="delta">+960bp YoY</div></div><div class="stat"><div class="label">Non-GAAP EPS</div><div class="value">$0.34</div><div class="delta">GAAP $0.13</div></div><div class="stat"><div class="label">CFO FQ4</div><div class="value">$66.7M</div><div class="delta"></div></div></div><div class="group-subhead">KPIs</div><div class="kpi-row"><div class="kpi"><span class="k">Cash</span><span class="v">$656.7M</span></div><div class="kpi"><span class="k">Notes</span><span class="v">$650M principal</span></div><div class="kpi"><span class="k">SBC % rev</span><span class="v">3.2%</span></div></div></section>
+<section class="snapshot-group guide"><h3><span>Guide</span><span class="group-period">next period</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">FQ1&#x27;27 revenue</div><div class="value">$450–460M</div><div class="delta">+1.6% to +3.8% QoQ</div></div><div class="stat"><div class="label">FQ1&#x27;27 non-GAAP EPS</div><div class="value">$0.40–0.42</div><div class="delta"></div></div><div class="stat"><div class="label">Next print</div><div class="value">~Oct 28, 2026</div><div class="delta">calendar estimate</div></div></div></section></div></div>
+<div class="panel"><h2>2 · Quarterly history <span class="tag">newest → oldest · $M</span></h2><div class="table-wrap"><table class="qtable"><thead><tr><th>Metric</th><th>FQ4'26</th><th>FQ3'26</th><th>FQ2'26</th><th>FQ1'26</th><th>FQ4'25</th><th>FQ3'25</th><th>FQ2'25</th><th>FQ1'25</th><th>FQ4'24</th><th>FQ3'24</th></tr></thead><tbody><tr><td>Revenue ($M)</td><td>443.1</td><td>406.8</td><td>369.3</td><td>299.1</td><td>290.5</td><td>284.8</td><td>270.8</td><td>238.2</td><td>252.0</td><td>246.0</td></tr><tr><td>QoQ</td><td class="up">8.9%</td><td class="up">10.2%</td><td class="up">23.5%</td><td class="up">3.0%</td><td class="up">2.0%</td><td class="up">5.2%</td><td class="up">13.7%</td><td class="down">-5.5%</td><td class="up">2.4%</td><td class=""><span class="muted">—</span></td></tr><tr><td>YoY</td><td class="up">52.5%</td><td class="up">42.8%</td><td class="up">36.4%</td><td class="up">25.6%</td><td class="up">15.3%</td><td class="up">15.8%</td><td class="up">6.4%</td><td class="down">-3.9%</td><td class="down">-4.4%</td><td class="down">-0.7%</td></tr><tr><td>Gross margin</td><td>60.6%</td><td>61.6%</td><td>61.1%</td><td>59.7%</td><td>58.0%</td><td>58.6%</td><td>60.6%</td><td>58.5%</td><td>59.2%</td><td>57.4%</td></tr><tr><td>Op margin</td><td class="up">14.3%</td><td class="up">12.2%</td><td class="up">8.8%</td><td class="up">8.3%</td><td class="up">5.4%</td><td class="up">8.4%</td><td class="up">8.2%</td><td class="up">3.6%</td><td class="up">3.4%</td><td class="up">1.9%</td></tr><tr><td>GAAP EPS</td><td class="up">0.13</td><td class="up">0.03</td><td class="down">-0.21</td><td class="down">-0.10</td><td class="up">0.03</td><td class="up">0.09</td><td class="up">0.04</td><td class="down">-0.01</td><td class="down">-0.10</td><td class="down">-0.11</td></tr><tr><td>FCF ($M)</td><td class="up">55.6</td><td class="down">-32.2</td><td class="up">36.9</td><td class="up">22.5</td><td class="up">18.3</td><td class="up">1.0</td><td class="up">36.5</td><td class="up">6.2</td><td class="up">22.4</td><td class="up">16.3</td></tr></tbody></table></div><p class="note">GM/op margin here are the S&amp;P-normalized series (excl. acquired-tech amortization), so FQ4&#x27;26 GM shows 60.6% vs 59.1% GAAP / 62.3% non-GAAP in the release. FQ4&#x27;26 SBC $14.2M = 3.2% of revenue.</p></div>
+<div class="panel"><h2>3 · Implied next-period range</h2><div class="method">Prior-quarter guide highs not compiled here, so last-5-beat implied range N/A. Guide high $460M; a 5% beat would be ~$483M (illustrative only).</div></div>
+<div class="panel"><h2>4 · Signal checklist</h2><div class="table-wrap"><table class="qtable sigt"><thead><tr><th>Signal</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>1. Guide ≥10–15% above consensus + revenue +20% QoQ</td><td><span class="sig sig-N">Not met</span></td><td>FQ1&#x27;27 guide $450–460M = only ~+2.7% QoQ at midpoint</td></tr><tr><td>2. Gross margin inflecting up</td><td><span class="sig sig-P">Partial</span></td><td>Non-GAAP GM 62.3% (+220bp YoY, flat QoQ); GAAP 59.1% (+160bp QoQ)</td></tr><tr><td>3. Earnings gap to new highs on heavy volume</td><td><span class="sig sig-N">Not met</span></td><td>~25% below 52-wk high; no verified gap</td></tr><tr><td>4. Consensus revisions up after print</td><td><span class="sig sig-U">Unverified</span></td><td>Not verified</td></tr><tr><td>5. Named big-customer wins / backlog well ahead of revenue</td><td><span class="sig sig-P">Partial</span></td><td>Data-center ecosystem and A&amp;D cited as drivers; no backlog/customer figures disclosed</td></tr><tr><td>6. Operating leverage / FCF turning positive</td><td><span class="sig sig-M">Met</span></td><td>Non-GAAP op margin 14.4% → 24.0% (+960bp YoY); FCF +$55.6M</td></tr><tr><td>7. Starting market cap under ~$10–15B</td><td><span class="sig sig-M">Met</span></td><td>~$11.2B</td></tr></tbody></table></div></div>
+<div class="panel"><h2>5 · Latest call / release summary</h2><div class="notes-grid">
+<div class="note-block"><h3>Segments</h3>NSE $353.9M (+69% YoY, incl. Spirent), OSP $89.2M (+10%).</div><div class="note-block"><h3>Upside</h3>Data-center test (800G/1.6T), A&amp;D/PNT; operating leverage.</div><div class="note-block"><h3>Downside</h3>Organic growth unclear after Spirent; guide implies flat-ish QoQ.</div></div></div>
+<div class="panel"><h2>6 · Sources</h2><footer class="sources"><a href="https://investor.viavisolutions.com/news-events/news-releases/news-details/2026/VIAVI-Announces-Fiscal-Fourth-Quarter-and-Fiscal-Year-2026-Results/default.aspx" target="_blank" rel="noopener">FQ4&#x27;26 release</a> · <a href="https://stockanalysis.com/stocks/viav/financials/?p=quarterly" target="_blank" rel="noopener">Quarterly financials</a></footer><div class="disclaimer">Research only — not investment advice.</div></div>
+</section><section id="tab-sitm" class="tab-panel hidden">
+<div class="panel"><h2>SiTime (swap for TSEM) · SITM <span class="tag">score 3.0 / 7</span></h2><p class="headline">Market cap <strong>$18.4B</strong> · Price $612.37 (52-wk 243.68–901.81; −32% from high) · Key risk: Above the cap band; $1.2B convert; Renesas timing (TPD) integration distorts comps</p></div>
+<div class="panel"><h2>1 · Snapshot <span class="tag">reported vs guide</span></h2><div class="snapshot-groups">
+<section class="snapshot-group reported"><h3><span>Reported results</span><span class="group-period">latest</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Revenue Q2&#x27;26</div><div class="value">$157.4M</div><div class="delta">+127% YoY · +39% QoQ</div></div><div class="stat"><div class="label">Non-GAAP GM</div><div class="value">67.1%</div><div class="delta">+2.6pp QoQ</div></div><div class="stat"><div class="label">Non-GAAP EPS</div><div class="value">$2.34</div><div class="delta">GAAP $0.66</div></div><div class="stat"><div class="label">FCF</div><div class="value">$27.3M</div><div class="delta"></div></div></div><div class="group-subhead">KPIs</div><div class="kpi-row"><div class="kpi"><span class="k">Q3 opex (non-GAAP)</span><span class="v">$80–85M</span></div><div class="kpi"><span class="k">Convert</span><span class="v">$1.2B</span></div><div class="kpi"><span class="k">SBC % rev</span><span class="v">not compiled</span></div></div></section>
+<section class="snapshot-group guide"><h3><span>Guide</span><span class="group-period">next period</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Q3&#x27;26 revenue</div><div class="value">$285–295M</div><div class="delta">incl. ~$85M TPD</div></div><div class="stat"><div class="label">Core (ex-TPD)</div><div class="value">$200–210M</div><div class="delta">+30% QoQ at mid</div></div><div class="stat"><div class="label">Q3 non-GAAP EPS</div><div class="value">$3.50–3.65</div><div class="delta">~32.8M shares</div></div></div></section></div></div>
+<div class="panel"><h2>2 · Quarterly history <span class="tag">newest → oldest · $M</span></h2><div class="table-wrap"><table class="qtable"><thead><tr><th>Metric</th><th>Q2'26</th><th>Q1'26</th><th>Q4'25</th><th>Q3'25</th><th>Q2'25</th><th>Q1'25</th><th>Q4'24</th><th>Q3'24</th><th>Q2'24</th><th>Q1'24</th></tr></thead><tbody><tr><td>Revenue ($M)</td><td>157.4</td><td>113.6</td><td>113.3</td><td>83.6</td><td>69.5</td><td>60.3</td><td>68.1</td><td>57.7</td><td>43.9</td><td>33.0</td></tr><tr><td>QoQ</td><td class="up">38.6%</td><td class="up">0.2%</td><td class="up">35.6%</td><td class="up">20.3%</td><td class="up">15.2%</td><td class="down">-11.5%</td><td class="up">18.0%</td><td class="up">31.5%</td><td class="up">32.9%</td><td class=""><span class="muted">—</span></td></tr><tr><td>YoY</td><td class="up">126.6%</td><td class="up">88.3%</td><td class="up">66.3%</td><td class="up">44.8%</td><td class="up">58.4%</td><td class="up">82.6%</td><td class="up">60.6%</td><td class="up">62.4%</td><td class="up">58.2%</td><td class="down">-13.9%</td></tr><tr><td>Gross margin</td><td>63.0%</td><td>59.0%</td><td>56.4%</td><td>53.5%</td><td>51.9%</td><td>50.3%</td><td>52.6%</td><td>51.1%</td><td>49.1%</td><td>53.5%</td></tr><tr><td>Op margin</td><td class="up">10.6%</td><td class="down">-4.2%</td><td class="up">2.6%</td><td class="down">-19.0%</td><td class="down">-32.7%</td><td class="down">-44.0%</td><td class="down">-33.3%</td><td class="down">-38.8%</td><td class="down">-66.5%</td><td class="down">-96.3%</td></tr><tr><td>GAAP EPS</td><td class="up">0.66</td><td class="down">-0.20</td><td class="up">0.34</td><td class="down">-0.31</td><td class="down">-0.84</td><td class="down">-1.01</td><td class="down">-0.80</td><td class="down">-0.83</td><td class="down">-1.16</td><td class="down">-1.26</td></tr><tr><td>FCF ($M)</td><td class="up">27.3</td><td class="up">17.9</td><td class="up">13.0</td><td class="up">26.3</td><td class="down">-2.9</td><td class="down">-1.3</td><td class="down">-2.4</td><td class="down">-6.7</td><td class="down">-2.7</td><td class="down">-1.2</td></tr></tbody></table></div><p class="note">GAAP GM shown. Q3&#x27;26 onward includes the acquired Renesas timing business (closed Jul 1, 2026).</p></div>
+<div class="panel"><h2>3 · Implied next-period range</h2><div class="method">Prior guide highs not compiled — last-5-beat implied range N/A; acquisition also breaks comparability.</div></div>
+<div class="panel"><h2>4 · Signal checklist</h2><div class="table-wrap"><table class="qtable sigt"><thead><tr><th>Signal</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>1. Guide ≥10–15% above consensus + revenue +20% QoQ</td><td><span class="sig sig-P">Partial</span></td><td>Q3 guide $285–295M incl. ~$85M acquired TPD; core $200–210M = +30% QoQ at mid. Consensus comparison not verified</td></tr><tr><td>2. Gross margin inflecting up</td><td><span class="sig sig-M">Met</span></td><td>Non-GAAP GM 58.2% (Q2&#x27;25) → 64.5% → 67.1%; Q3 combined ~68% ±1</td></tr><tr><td>3. Earnings gap to new highs on heavy volume</td><td><span class="sig sig-N">Not met</span></td><td>~32% below 52-wk high</td></tr><tr><td>4. Consensus revisions up after print</td><td><span class="sig sig-U">Unverified</span></td><td>Not verified</td></tr><tr><td>5. Named big-customer wins / backlog well ahead of revenue</td><td><span class="sig sig-P">Partial</span></td><td>Management cites backlog strength and customer forecasts (CED +181%); no backlog $ figure</td></tr><tr><td>6. Operating leverage / FCF turning positive</td><td><span class="sig sig-M">Met</span></td><td>GAAP op margin −32.7% → +10.6% YoY; FCF +$27.3M</td></tr><tr><td>7. Starting market cap under ~$10–15B</td><td><span class="sig sig-N">Not met</span></td><td>~$18.4B — above the band (fails conditioning signal)</td></tr></tbody></table></div></div>
+<div class="panel"><h2>5 · Latest call / release summary</h2><div class="notes-grid">
+<div class="note-block"><h3>Segments</h3>Every segment +50%+ YoY; CED +181%.</div><div class="note-block"><h3>Upside</h3>AI data-center timing content; TPD cross-sell; GM to ~68%.</div><div class="note-block"><h3>Downside</h3>Valuation and size; integration; convert dilution.</div></div></div>
+<div class="panel"><h2>6 · Sources</h2><footer class="sources"><a href="https://www.sec.gov/Archives/edgar/data/1451809/000145180926000059/sitm-q226x8kxexx991.htm" target="_blank" rel="noopener">Q2&#x27;26 release (8-K)</a> · <a href="https://www.fool.com/earnings/call-transcripts/2026/08/12/sitime-sitm-q2-2026-earnings-call-transcript/" target="_blank" rel="noopener">Q2&#x27;26 call</a> · <a href="https://stockanalysis.com/stocks/sitm/financials/?p=quarterly" target="_blank" rel="noopener">Quarterly financials</a></footer><div class="disclaimer">Research only — not investment advice.</div></div>
+</section><section id="tab-mp1" class="tab-panel hidden">
+<div class="panel"><h2>Megaport (ASX:MP1) · MP1 <span class="tag">score 3.0 / 7</span></h2><p class="headline">Market cap <strong>A$4.4B</strong> · Price A$18.78 (52-wk 6.40–23.20; −19% from high) · Key risk: Capex A$1.78–1.88B (funding/dilution); GPU-cloud pricing; contract concentration</p></div>
+<div class="panel"><h2>1 · Snapshot <span class="tag">reported vs guide</span></h2><div class="snapshot-groups">
+<section class="snapshot-group reported"><h3><span>Reported results</span><span class="group-period">latest</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">FY26 revenue</div><div class="value">A$312.2M</div><div class="delta">+37.5% YoY</div></div><div class="stat"><div class="label">FY26 net income</div><div class="value">−A$39.0M</div><div class="delta"></div></div><div class="stat"><div class="label">Compute ARR</div><div class="value">US$141.0M</div><div class="delta">at 22 Sep 2026, +90% since 30 Jun</div></div><div class="stat"><div class="label">New TCV</div><div class="value">A$978.6M</div><div class="delta">3 contracts</div></div></div><div class="group-subhead">KPIs</div><div class="kpi-row"><div class="kpi"><span class="k">Strategic contracts</span><span class="v">14</span></div><div class="kpi"><span class="k">Prepayments</span><span class="v">A$322.6M</span></div><div class="kpi"><span class="k">SBC % rev</span><span class="v">not compiled</span></div></div></section>
+<section class="snapshot-group guide"><h3><span>Guide</span><span class="group-period">next period</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">FY27 revenue</div><div class="value">A$720–810M</div><div class="delta">raised from A$620–730M</div></div><div class="stat"><div class="label">FY27 EBITDA margin</div><div class="value">42–44%</div><div class="delta">from 38–40%</div></div><div class="stat"><div class="label">FY27 capex</div><div class="value">A$1.78–1.88B</div><div class="delta">from A$1.28–1.38B</div></div></div></section></div></div>
+<div class="panel"><h2>2 · Quarterly history <span class="tag">newest → oldest · $M</span></h2><p class="note">Quarterly table not available — see note.</p><p class="note">Megaport reports half-yearly. Only verified annual totals shown: FY25 A$227.1M, FY26 A$312.2M (+37.5%). Half-year detail not compiled.</p></div>
+<div class="panel"><h2>3 · Implied next-period range</h2><div class="method">Annual guide only; quarterly implied range N/A.</div></div>
+<div class="panel"><h2>4 · Signal checklist</h2><div class="table-wrap"><table class="qtable sigt"><thead><tr><th>Signal</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>1. Guide ≥10–15% above consensus + revenue +20% QoQ</td><td><span class="sig sig-P">Partial</span></td><td>FY27 revenue guide raised to A$720–810M from A$620–730M (+13% at mid; ~+145% vs FY26). Consensus not verified; half-yearly reporter</td></tr><tr><td>2. Gross margin inflecting up</td><td><span class="sig sig-P">Partial</span></td><td>Group EBITDA-margin guide raised to 42–44% from 38–40%; GM not reported comparably</td></tr><tr><td>3. Earnings gap to new highs on heavy volume</td><td><span class="sig sig-N">Not met</span></td><td>~19% below 52-wk high; RSI ~46</td></tr><tr><td>4. Consensus revisions up after print</td><td><span class="sig sig-U">Unverified</span></td><td>Not verified (16 analysts &#x27;Strong Buy&#x27;, PT A$28.07)</td></tr><tr><td>5. Named big-customer wins / backlog well ahead of revenue</td><td><span class="sig sig-M">Met</span></td><td>~A$979M TCV across three new AI contracts (two new customers), A$232M ARR, A$323M prepayments; 14 strategic contracts</td></tr><tr><td>6. Operating leverage / FCF turning positive</td><td><span class="sig sig-N">Not met</span></td><td>FY26 net loss A$39M; capex guide implies deeply negative FCF</td></tr><tr><td>7. Starting market cap under ~$10–15B</td><td><span class="sig sig-M">Met</span></td><td>~A$4.4B (~US$2.9B)</td></tr></tbody></table></div></div>
+<div class="panel"><h2>5 · Latest call / release summary</h2><div class="notes-grid">
+<div class="note-block"><h3>Segments</h3>FY27 guide: Network A$325–335M; Compute (Latitude.sh) A$395–475M.</div><div class="note-block"><h3>Upside</h3>More strategic compute contracts; prepayments fund part of capex.</div><div class="note-block"><h3>Downside</h3>Heavy capex/funding; GPU pricing; execution on deployments.</div></div></div>
+<div class="panel"><h2>6 · Sources</h2><footer class="sources"><a href="https://www.marketindex.com.au/data-api/api/v1/announcements/XASX:MP1:2A1700032/pdf/inline/megaport-secures-new-ai-infrastructure-contracts" target="_blank" rel="noopener">ASX announcement (29 Sep 2026)</a> · <a href="https://stockanalysis.com/quote/asx/MP1/" target="_blank" rel="noopener">Quote / mkt cap</a> · <a href="https://bellpotter.com.au/wp-content/uploads/2026/10/MP1.pdf" target="_blank" rel="noopener">Bell Potter initiation (Oct 2026)</a></footer><div class="disclaimer">Research only — not investment advice.</div></div>
+</section><section id="tab-ena" class="tab-panel hidden">
+<div class="panel"><h2>Enablence (TSXV:ENA) · ENA <span class="tag">score 3.0 / 7</span></h2><p class="headline">Market cap <strong>C$216M</strong> · Price C$8.90 (Oct 10, 2026) · Key risk: Micro-cap, illiquid; financing risk; preliminary unaudited numbers</p></div>
+<div class="panel"><h2>1 · Snapshot <span class="tag">reported vs guide</span></h2><div class="snapshot-groups">
+<section class="snapshot-group reported"><h3><span>Reported results</span><span class="group-period">latest</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">FY26 revenue (prelim)</div><div class="value">US$7.9–8.1M</div><div class="delta">unaudited</div></div><div class="stat"><div class="label">FY26 GAAP GM</div><div class="value">−12% to −18%</div><div class="delta">vs −40% FY25</div></div><div class="stat"><div class="label">Wafer starts</div><div class="value">→ &gt;4,000/mo</div><div class="delta">by end CY2026</div></div></div><div class="group-subhead">KPIs</div><div class="kpi-row"><div class="kpi"><span class="k">Shares out</span><span class="v">~24.3M</span></div><div class="kpi"><span class="k">SBC % rev</span><span class="v">not compiled</span></div></div></section>
+<section class="snapshot-group guide"><h3><span>Guide</span><span class="group-period">next period</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">FY27 revenue</div><div class="value">US$19–21M</div><div class="delta">+150% at mid</div></div><div class="stat"><div class="label">FY27 GAAP GM</div><div class="value">25–35%</div><div class="delta"></div></div><div class="stat"><div class="label">2nd fab</div><div class="value">qualify 2H FY27</div><div class="delta"></div></div></div></section></div></div>
+<div class="panel"><h2>2 · Quarterly history <span class="tag">newest → oldest · $M</span></h2><p class="note">Quarterly table not available — see note.</p><p class="note">Quarterly history not compiled (Canadian filer, SEDAR+). FY26 (Jun) preliminary unaudited revenue US$7.9–8.1M.</p></div>
+<div class="panel"><h2>3 · Implied next-period range</h2><div class="method">Annual guide only; N/A.</div></div>
+<div class="panel"><h2>4 · Signal checklist</h2><div class="table-wrap"><table class="qtable sigt"><thead><tr><th>Signal</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>1. Guide ≥10–15% above consensus + revenue +20% QoQ</td><td><span class="sig sig-P">Partial</span></td><td>FY27 revenue guide US$19–21M (+150% at mid); no consensus available</td></tr><tr><td>2. Gross margin inflecting up</td><td><span class="sig sig-M">Met</span></td><td>GAAP GM −40% (FY25) → −12/−18% (FY26 prelim; first positive-GM quarter) → +25–35% guided FY27</td></tr><tr><td>3. Earnings gap to new highs on heavy volume</td><td><span class="sig sig-U">Unverified</span></td><td>Not verified</td></tr><tr><td>4. Consensus revisions up after print</td><td><span class="sig sig-U">Unverified</span></td><td>Not verified (minimal coverage)</td></tr><tr><td>5. Named big-customer wins / backlog well ahead of revenue</td><td><span class="sig sig-P">Partial</span></td><td>Demand outpaces wafer capacity; no named customers/backlog figure</td></tr><tr><td>6. Operating leverage / FCF turning positive</td><td><span class="sig sig-N">Not met</span></td><td>Still loss-making; capacity investment</td></tr><tr><td>7. Starting market cap under ~$10–15B</td><td><span class="sig sig-M">Met</span></td><td>~C$216M</td></tr></tbody></table></div></div>
+<div class="panel"><h2>5 · Latest call / release summary</h2><div class="notes-grid">
+<div class="note-block"><h3>Segments</h3>Communications, sensing (LiDAR/vision), compute (AI).</div><div class="note-block"><h3>Upside</h3>Second manufacturing site relieves capacity constraint.</div><div class="note-block"><h3>Downside</h3>Prelim numbers could change; tiny float; equity financing likely.</div></div></div>
+<div class="panel"><h2>6 · Sources</h2><footer class="sources"><a href="https://business.am-news.com/am-news/article/newsfile-2026-9-22-enablence-technologies-announces-preliminary-unaudited-fy2026-results-and-updated-guidance" target="_blank" rel="noopener">Prelim FY26 + FY27 guide (Sep 22, 2026)</a> · <a href="https://stockanalysis.com/quote/tsxv/ENA/" target="_blank" rel="noopener">Quote</a></footer><div class="disclaimer">Research only — not investment advice.</div></div>
+</section><section id="tab-accv" class="tab-panel hidden">
+<div class="panel"><h2>Accelevation (IPO Sep 30, 2026) · ACCV <span class="tag">score 2.5 / 7</span></h2><p class="headline">Market cap <strong>~$2.6B+ (unverified)</strong> · Price IPO $18.00 (below $20–24 range); $17.95 day-1 close · Key risk: Sponsor (Olympus) selling; falling GM; % of completion accounting; no trading history</p></div>
+<div class="panel"><h2>1 · Snapshot <span class="tag">reported vs guide</span></h2><div class="snapshot-groups">
+<section class="snapshot-group reported"><h3><span>Reported results</span><span class="group-period">latest</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">H1&#x27;26 revenue</div><div class="value">$437.5M</div><div class="delta"></div></div><div class="stat"><div class="label">H1&#x27;26 NI</div><div class="value">$19.3M</div><div class="delta"></div></div><div class="stat"><div class="label">Backlog</div><div class="value">$1.111B</div><div class="delta">Jun 30, 2026</div></div><div class="stat"><div class="label">IPO</div><div class="value">$18.00</div><div class="delta">30M sh; 10M primary</div></div></div><div class="group-subhead">KPIs</div><div class="kpi-row"><div class="kpi"><span class="k">Class B issued</span><span class="v">116.97M</span></div><div class="kpi"><span class="k">SBC % rev</span><span class="v">not compiled</span></div></div></section>
+<section class="snapshot-group guide"><h3><span>Guide</span><span class="group-period">next period</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Guidance</div><div class="value">none yet</div><div class="delta">first print TBD</div></div></div></section></div></div>
+<div class="panel"><h2>2 · Quarterly history <span class="tag">newest → oldest · $M</span></h2><p class="note">Quarterly table not available — see note.</p><p class="note">Annual/half-year only (S-1): FY24 $181.4M, FY25 $447.8M (+147%), H1&#x27;26 $437.5M. NI: $9.4M, $21.7M, $19.3M.</p></div>
+<div class="panel"><h2>3 · Implied next-period range</h2><div class="method">No guide; N/A.</div></div>
+<div class="panel"><h2>4 · Signal checklist</h2><div class="table-wrap"><table class="qtable sigt"><thead><tr><th>Signal</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>1. Guide ≥10–15% above consensus + revenue +20% QoQ</td><td><span class="sig sig-N">Not met</span></td><td>No public guidance yet (pre-first-print)</td></tr><tr><td>2. Gross margin inflecting up</td><td><span class="sig sig-N">Not met</span></td><td>GM 32.5% (FY24) → 32.3% (FY25) → 26.6% (H1&#x27;26): falling during ramp (caution flag)</td></tr><tr><td>3. Earnings gap to new highs on heavy volume</td><td><span class="sig sig-N">Not met</span></td><td>IPO priced below range; flat on day 1; no base yet</td></tr><tr><td>4. Consensus revisions up after print</td><td><span class="sig sig-U">Unverified</span></td><td>Coverage starts after quiet period</td></tr><tr><td>5. Named big-customer wins / backlog well ahead of revenue</td><td><span class="sig sig-M">Met</span></td><td>Backlog $1.111B (Jun 30, 2026) vs $419M at YE25; book-to-bill ~2.5x</td></tr><tr><td>6. Operating leverage / FCF turning positive</td><td><span class="sig sig-P">Partial</span></td><td>Profitable (H1&#x27;26 NI $19.3M); FCF not verified</td></tr><tr><td>7. Starting market cap under ~$10–15B</td><td><span class="sig sig-M">Met</span></td><td>~$2.6B+ at $18 (Class A + 117M Class B; total share count not verified)</td></tr></tbody></table></div></div>
+<div class="panel"><h2>5 · Latest call / release summary</h2><div class="notes-grid">
+<div class="note-block"><h3>Segments</h3>AI data-center infrastructure (from S-1).</div><div class="note-block"><h3>Upside</h3>Backlog conversion; first-print guide could reset expectations.</div><div class="note-block"><h3>Downside</h3>Margin compression; 20M of 30M IPO shares were sponsor secondary; lockup expiry.</div></div></div>
+<div class="panel"><h2>6 · Sources</h2><footer class="sources"><a href="https://www.globenewswire.com/news-release/2026/09/29/3371460/0/en/accelevation-announces-pricing-of-initial-public-offering.html" target="_blank" rel="noopener">IPO pricing (GlobeNewswire)</a> · <a href="https://www.sec.gov/Archives/edgar/data/2141406/000162828026062945/accelevationllc-sx1a2.htm" target="_blank" rel="noopener">S-1/A (Sep 22, 2026)</a> · <a href="https://www.stocktitan.net/sec-filings/ACCV/8-k-accelevation-holdings-corp-reports-material-event-a0272e13a79c.html" target="_blank" rel="noopener">IPO closing 8-K summary</a></footer><div class="disclaimer">Research only — not investment advice.</div></div>
+</section><section id="tab-aaoi" class="tab-panel hidden">
+<div class="panel"><h2>Applied Optoelectronics · AAOI <span class="tag">score 2.0 / 7</span></h2><p class="headline">Market cap <strong>$9.9B</strong> · Price $109.64 (52-wk 18.50–233.67; −53% from high) · Key risk: GM not inflecting in capacity ramp; huge capex/FCF burn; dilution; customer concentration</p></div>
+<div class="panel"><h2>1 · Snapshot <span class="tag">reported vs guide</span></h2><div class="snapshot-groups">
+<section class="snapshot-group reported"><h3><span>Reported results</span><span class="group-period">latest</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Revenue Q2&#x27;26</div><div class="value">$191.9M</div><div class="delta">+86% YoY · +27% QoQ</div></div><div class="stat"><div class="label">Non-GAAP GM</div><div class="value">29.8%</div><div class="delta">+0.6pp QoQ</div></div><div class="stat"><div class="label">Non-GAAP EPS</div><div class="value">$0.06</div><div class="delta">GAAP −$0.28</div></div><div class="stat"><div class="label">Cash</div><div class="value">$509M</div><div class="delta"></div></div></div><div class="group-subhead">KPIs</div><div class="kpi-row"><div class="kpi"><span class="k">Capacity</span><span class="v">~200k units/mo</span></div><div class="kpi"><span class="k">SBC % rev</span><span class="v">2.5%</span></div></div></section>
+<section class="snapshot-group guide"><h3><span>Guide</span><span class="group-period">next period</span></h3><div class="snapshot-grid"><div class="stat"><div class="label">Q3&#x27;26 revenue</div><div class="value">$255–290M</div><div class="delta">+33% to +51% QoQ</div></div><div class="stat"><div class="label">Non-GAAP GM</div><div class="value">29–30.5%</div><div class="delta"></div></div><div class="stat"><div class="label">Non-GAAP EPS</div><div class="value">$0.11–0.26</div><div class="delta">~92.8M sh</div></div></div></section></div></div>
+<div class="panel"><h2>2 · Quarterly history <span class="tag">newest → oldest · $M</span></h2><div class="table-wrap"><table class="qtable"><thead><tr><th>Metric</th><th>Q2'26</th><th>Q1'26</th><th>Q4'25</th><th>Q3'25</th><th>Q2'25</th><th>Q1'25</th><th>Q4'24</th><th>Q3'24</th><th>Q2'24</th><th>Q1'24</th></tr></thead><tbody><tr><td>Revenue ($M)</td><td>191.9</td><td>151.1</td><td>134.3</td><td>118.6</td><td>103.0</td><td>99.9</td><td>100.3</td><td>65.2</td><td>43.3</td><td>40.7</td></tr><tr><td>QoQ</td><td class="up">27.0%</td><td class="up">12.6%</td><td class="up">13.2%</td><td class="up">15.2%</td><td class="up">3.1%</td><td class="down">-0.4%</td><td class="up">53.9%</td><td class="up">50.6%</td><td class="up">6.4%</td><td class=""><span class="muted">—</span></td></tr><tr><td>YoY</td><td class="up">86.4%</td><td class="up">51.4%</td><td class="up">33.9%</td><td class="up">82.1%</td><td class="up">137.9%</td><td class="up">145.5%</td><td class="up">65.9%</td><td class="up">4.2%</td><td class="up">4.0%</td><td class="down">-23.3%</td></tr><tr><td>Gross margin</td><td>27.7%</td><td>29.1%</td><td>31.2%</td><td>28.0%</td><td>30.3%</td><td>30.6%</td><td>28.6%</td><td>24.4%</td><td>22.1%</td><td>18.7%</td></tr><tr><td>Op margin</td><td class="down">-12.9%</td><td class="down">-8.6%</td><td class="down">-8.6%</td><td class="down">-15.3%</td><td class="down">-15.5%</td><td class="down">-8.9%</td><td class="down">-6.5%</td><td class="down">-25.4%</td><td class="down">-60.6%</td><td class="down">-53.2%</td></tr><tr><td>GAAP EPS</td><td class="down">-0.28</td><td class="down">-0.19</td><td class="down">-0.03</td><td class="down">-0.28</td><td class="down">-0.16</td><td class="down">-0.18</td><td class="down">-2.60</td><td class="down">-0.42</td><td class="down">-0.66</td><td class="down">-0.60</td></tr><tr><td>FCF ($M)</td><td class="down">-563.7</td><td class="down">-143.6</td><td class="down">-114.4</td><td class="down">-78.8</td><td class="down">-112.1</td><td class="down">-79.3</td><td class="down">-53.8</td><td class="down">-23.6</td><td class="down">-6.0</td><td class="down">-36.4</td></tr></tbody></table></div><p class="note">Q4&#x27;24 EPS includes a large warrant/fair-value charge. Q2&#x27;26 SBC $4.86M = 2.5% of revenue.</p></div>
+<div class="panel"><h2>3 · Implied next-period range</h2><div class="method">Prior guide highs not compiled — last-5-beat implied range N/A.</div></div>
+<div class="panel"><h2>4 · Signal checklist</h2><div class="table-wrap"><table class="qtable sigt"><thead><tr><th>Signal</th><th>Status</th><th>Evidence</th></tr></thead><tbody><tr><td>1. Guide ≥10–15% above consensus + revenue +20% QoQ</td><td><span class="sig sig-P">Partial</span></td><td>Q3 guide $255–290M = +42% QoQ at mid; consensus comparison not verified</td></tr><tr><td>2. Gross margin inflecting up</td><td><span class="sig sig-N">Not met</span></td><td>GAAP GM 30.3% → 27.7% YoY; non-GAAP guide 29–30.5% — flat (the &#x27;AAOI-type&#x27; false-positive caveat)</td></tr><tr><td>3. Earnings gap to new highs on heavy volume</td><td><span class="sig sig-N">Not met</span></td><td>~53% below 52-wk high</td></tr><tr><td>4. Consensus revisions up after print</td><td><span class="sig sig-U">Unverified</span></td><td>Not verified</td></tr><tr><td>5. Named big-customer wins / backlog well ahead of revenue</td><td><span class="sig sig-P">Partial</span></td><td>Demand forecast to exceed capacity through mid-2027; 800G more than doubled QoQ; customers not named in release</td></tr><tr><td>6. Operating leverage / FCF turning positive</td><td><span class="sig sig-N">Not met</span></td><td>GAAP op loss −$24.7M; FCF −$564M in Q2&#x27;26 (capex $575M)</td></tr><tr><td>7. Starting market cap under ~$10–15B</td><td><span class="sig sig-M">Met</span></td><td>~$9.9B</td></tr></tbody></table></div></div>
+<div class="panel"><h2>5 · Latest call / release summary</h2><div class="notes-grid">
+<div class="note-block"><h3>Segments</h3>Datacenter $107.7M (+140% YoY); CATV $80.6M; Telecom $3.4M (Q2&#x27;26).</div><div class="note-block"><h3>Upside</h3>Capacity to ~650k 800G/1.6T units/mo by YE26; 1.6T ramp.</div><div class="note-block"><h3>Downside</h3>Margins stuck ~30%; capex burn; GAAP losses; concentration.</div></div></div>
+<div class="panel"><h2>6 · Sources</h2><footer class="sources"><a href="https://www.sec.gov/Archives/edgar/data/1158114/000168316826006055/aaoi_ex9901.htm" target="_blank" rel="noopener">Q2&#x27;26 release (8-K ex. 99.1)</a> · <a href="https://stockanalysis.com/stocks/aaoi/financials/?p=quarterly" target="_blank" rel="noopener">Quarterly financials</a></footer><div class="disclaimer">Research only — not investment advice.</div></div>
+</section></main>
+<script>(function(){var t=document.querySelectorAll('.tab');t.forEach(function(b){b.addEventListener('click',function(){t.forEach(function(x){x.classList.remove('active')});b.classList.add('active');document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.add('hidden')});document.getElementById('tab-'+b.dataset.tab).classList.remove('hidden');window.scrollTo(0,0);})})})();</script>
+</body></html>
